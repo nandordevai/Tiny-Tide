@@ -1,0 +1,22 @@
+.canvas {
+  background:
+    radial-gradient(oklch(1 0 0 / 0.25),
+      oklch(1 0 0 / 0.25) 50%,
+      oklch(0.9 0 0 / 0.3) 100%),
+    oklch(0.9 0 0 / 0.2);
+  border-radius: 0.75rem;
+
+  & * {
+    border-radius: 1rem;
+  }
+}
+
+.sidebar {
+  margin: 1rem;
+}
+
+.viewport {
+  border-radius: 0.75rem;
+  box-shadow: inset 0 0 2px var(--shadow-color);
+  margin: 0.5rem;
+}

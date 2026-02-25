@@ -1,0 +1,6 @@
+h2 {
+  border-block-end: 1px solid oklch(0 0 0 / 0.2);
+  font-size: 0.85rem;
+  margin-block-end: 1rem;
+  padding-block-end: 0.25rem;
+}

@@ -1,0 +1,11 @@
+.color-picker {
+  align-items: center;
+  border-block-start: 1px solid oklch(0.9 0 0);
+  display: flex;
+  flex-direction: row;
+  font-size: var(--ui-font-size);
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-block-start: 1.75rem;
+  padding-block-start: 1rem;
+}

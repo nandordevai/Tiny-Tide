@@ -5,9 +5,11 @@ interface ModelState {
   lighthouseScale: number
   lighthouseColor: string
   roadColor: string
+  sunPosition: number
   setLighthouseColor: (value: string) => void
   setLighthouseScale: (value: number) => void
   setRoadColor: (value: string) => void
+  setSunPosition: (value: number) => void
   setLoaded: () => void
 }
 
@@ -16,8 +18,10 @@ export const useStore = create<ModelState>((set) => ({
   lighthouseScale: 0,
   lighthouseColor: '#E72E00',
   roadColor: '#AD8E6D',
+  sunPosition: 0.15,
   setLighthouseColor: (val) => set({ lighthouseColor: val }),
   setLighthouseScale: (val) => set({ lighthouseScale: val }),
   setRoadColor: (val) => set({ roadColor: val }),
+  setSunPosition: (val) => set({ sunPosition: val }),
   setLoaded: () => set({ isLoaded: true })
 }))

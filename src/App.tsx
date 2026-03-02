@@ -1,13 +1,28 @@
 import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { ContactShadows, Sky } from '@react-three/drei'
+import { Bounds, ContactShadows, Sky, useBounds } from '@react-three/drei'
 // import * as THREE from 'three'
+import { useStore } from './store'
 import { Sidebar } from './Sidebar'
 import { Model } from './Model'
 import './App.css'
 
+function BoundsController() {
+  const bounds = useBounds()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      bounds.refresh().clip().fit()
+    }, 150)
+    return () => clearTimeout(timer)
+  }, [bounds])
+
+  return null
+}
+
 export default function App() {
   const [count, setCount] = useState(0)
+  const store = useStore()
 
   useEffect(() => {
     if (import.meta.hot) {
@@ -16,6 +31,24 @@ export default function App() {
       })
     }
   }, [])
+
+  const getSunVector = (radius: number, z: number): [number, number, number] => {
+    const angle = store.sunPosition * Math.PI * 2
+    return [Math.cos(angle) * radius, Math.sin(angle) * radius, z]
+  }
+
+  const getSunPosition = () => getSunVector(100, 0)
+
+  const getSunLightPosition = () => getSunVector(20, -5)
+
+  const getDaylightFactor = () => {
+    const angle = store.sunPosition * Math.PI * 2
+    return Math.max(0, Math.sin(angle))
+  }
+
+  const getLightIntensity = () => getDaylightFactor() * 4 + 1
+
+  const getAmbientIntensity = () => getDaylightFactor() * 0.5 + 0.5
 
   return (
     <>
@@ -28,13 +61,13 @@ export default function App() {
           shadows
         >
           {/* <Environment preset='' /> */}
-          <ambientLight intensity={0.8} />
-          <Sky sunPosition={[100, 100, 100]} />
+          <ambientLight intensity={getAmbientIntensity()} />
+          <Sky sunPosition={getSunPosition()} />
           <directionalLight
             castShadow
             color={'rgb(255, 255, 240)'}
-            intensity={5}
-            position={[10, 20, -10]}
+            intensity={getLightIntensity()}
+            position={getSunLightPosition()}
             shadow-bias={-0.001}
             shadow-camera-left={-10}
             shadow-camera-right={10}
@@ -51,7 +84,10 @@ export default function App() {
             far={4.5}
           />
 
-          <Model />
+          <Bounds fit clip margin={1.5}>
+            <BoundsController />
+            <Model />
+          </Bounds>
 
           {/* <OrbitControls makeDefault /> */}
           {/* <gridHelper args={[10, 10]} /> */}

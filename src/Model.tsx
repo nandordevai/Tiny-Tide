@@ -11,7 +11,6 @@ import { useStore } from './store'
 
 type GLTFResult = GLTF & {
   nodes: {
-    Background: THREE.Mesh
     Boat: THREE.Mesh
     Upper: THREE.Mesh
     Tower: THREE.Mesh
@@ -70,7 +69,6 @@ export function Model() {
 
   return (
     <group dispose={null}>
-      <mesh castShadow receiveShadow geometry={nodes.Background.geometry} material={materials.World} />
       <mesh castShadow receiveShadow geometry={nodes.Boat.geometry} material={materials['Wood light']}>
         <mesh castShadow receiveShadow geometry={nodes.Upper.geometry} material={materials['Wood light']} position={[2.932, 1.189, -0.72]} scale={[0.058, 0.231, 0.15]} />
       </mesh>
@@ -127,24 +125,32 @@ export function Model() {
           />
         </mesh>
         <mesh
+          castShadow
+          receiveShadow
           name="Tower_2"
           geometry={nodes.Tower_2.geometry}
           material={materials.Window}
           morphTargetDictionary={nodes.Tower_2.morphTargetDictionary}
           morphTargetInfluences={scale} />
         <mesh
+          castShadow
+          receiveShadow
           name="Tower_3"
           geometry={nodes.Tower_3.geometry}
           material={materials.Roof}
           morphTargetDictionary={nodes.Tower_3.morphTargetDictionary}
           morphTargetInfluences={scale} />
         <mesh
+          castShadow
+          receiveShadow
           name="Tower_4"
           geometry={nodes.Tower_4.geometry}
           material={materials.Wood}
           morphTargetDictionary={nodes.Tower_4.morphTargetDictionary}
           morphTargetInfluences={scale} />
         <mesh
+          castShadow
+          receiveShadow
           name="Base001"
           geometry={nodes.Base001.geometry}
           material={materials['Lighthouse white']}

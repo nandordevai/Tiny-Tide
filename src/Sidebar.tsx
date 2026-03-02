@@ -16,25 +16,39 @@ export function Sidebar() {
 
   return (
     <aside className="sidebar">
+      <h2>Lighthouse</h2>
       <Slider
         min={0}
         max={1}
         step={0.1}
         label="Scale"
         value={store.lighthouseScale ?? 0}
+        showValue={false}
         onChange={(val) => store.setLighthouseScale(val)}
+      />
+
+      <ColorPicker
+        label="Color"
+        value={store.lighthouseColor}
+        setter={store.setLighthouseColor}
+      />
+
+      <h2>Environment</h2>
+
+      <Slider
+        min={0}
+        max={1}
+        step={0.01}
+        label="Sun"
+        value={store.sunPosition ?? 0}
+        showValue={false}
+        onChange={(val) => store.setSunPosition(val)}
       />
 
       <ColorPicker
         label="Road Color"
         value={store.roadColor}
         setter={store.setRoadColor}
-      />
-
-      <ColorPicker
-        label="Lighthouse Color"
-        value={store.lighthouseColor}
-        setter={store.setLighthouseColor}
       />
 
     </aside>

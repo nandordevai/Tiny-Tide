@@ -56,7 +56,7 @@ type GLTFResult = GLTF & {
 }
 
 export function Model() {
-  const { nodes, materials } = useGLTF('/model.glb') as unknown as GLTFResult
+  const { nodes, materials } = useGLTF('model.glb') as unknown as GLTFResult
   const store = useStore()
 
   useEffect(() => {
@@ -163,4 +163,4 @@ export function Model() {
   )
 }
 
-useGLTF.preload('/model.glb')
+useGLTF.preload('model.glb')

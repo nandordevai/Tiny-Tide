@@ -1,24 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Bounds, ContactShadows, Sky, useBounds } from '@react-three/drei'
-// import * as THREE from 'three'
+import { ContactShadows, OrbitControls, Sky } from '@react-three/drei'
 import { useStore } from './store'
 import { Sidebar } from './Sidebar'
 import { Model } from './Model'
 import './App.css'
-
-function BoundsController() {
-  const bounds = useBounds()
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      bounds.refresh().clip().fit()
-    }, 150)
-    return () => clearTimeout(timer)
-  }, [bounds])
-
-  return null
-}
 
 export default function App() {
   const [count, setCount] = useState(0)
@@ -60,7 +46,6 @@ export default function App() {
           key={count}
           shadows
         >
-          {/* <Environment preset='' /> */}
           <ambientLight intensity={getAmbientIntensity()} />
           <Sky sunPosition={getSunPosition()} />
           <directionalLight
@@ -84,13 +69,12 @@ export default function App() {
             far={4.5}
           />
 
-          <Bounds fit clip margin={1.5}>
-            <BoundsController />
-            <Model />
-          </Bounds>
+          <Model />
 
-          {/* <OrbitControls makeDefault /> */}
-          {/* <gridHelper args={[10, 10]} /> */}
+          <OrbitControls
+            makeDefault
+            enableZoom={false}
+          />
 
         </Canvas>
       </main>

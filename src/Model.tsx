@@ -66,6 +66,8 @@ export function Model() {
     }
   }, [nodes])
 
+  const scale = [store.lighthouseScale, 0, 1]
+
   return (
     <group dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Background.geometry} material={materials.World} />
@@ -100,19 +102,57 @@ export function Model() {
       <mesh castShadow receiveShadow geometry={nodes.Rock011.geometry} material={materials.Rock} position={[3.311, 0.816, 1.676]} rotation={[0.038, -0.294, -1.187]} scale={[0.403, 0.134, 0.134]} />
       <mesh castShadow receiveShadow geometry={nodes.Rock012.geometry} material={materials.Rock} position={[1.138, 1.058, -3.316]} rotation={[-0.157, -0.355, -0.279]} scale={[0.212, 0.071, 0.071]} />
       <mesh castShadow receiveShadow geometry={nodes.Rock013.geometry} material={materials.Rock} position={[1.79, 1.483, 2.439]} rotation={[-3.018, 1.174, 3.13]} scale={[0.315, 0.105, 0.105]} />
-      <mesh castShadow receiveShadow geometry={nodes.Tower.geometry} material={materials['Lighthouse white']} />
-      <mesh castShadow receiveShadow geometry={nodes.Tower_1.geometry}>
-        <meshStandardMaterial
-          map={materials['Lighthouse red'].map}
-          color={store.lighthouseColor}
-          roughness={materials['Lighthouse red'].roughness}
-          metalness={materials['Lighthouse red'].metalness}
+
+      <group position={[-0.192, 1.371, -1.606]}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tower.geometry}
+          material={materials['Lighthouse white']}
+          morphTargetInfluences={scale}
+          morphTargetDictionary={nodes.Tower.morphTargetDictionary}
         />
-      </mesh>
-      <mesh castShadow receiveShadow geometry={nodes.Tower_2.geometry} material={materials.Window} />
-      <mesh castShadow receiveShadow geometry={nodes.Tower_3.geometry} material={materials.Roof} />
-      <mesh castShadow receiveShadow geometry={nodes.Tower_4.geometry} material={materials.Wood} />
-      <mesh castShadow receiveShadow geometry={nodes.Base001.geometry} material={materials['Lighthouse white']} position={[-0.192, 0, -1.606]} scale={[0.724, 0.819, 0.724]} />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tower_1.geometry}
+          morphTargetInfluences={scale}
+          morphTargetDictionary={nodes.Tower.morphTargetDictionary}
+        >
+          <meshStandardMaterial
+            map={materials['Lighthouse red'].map}
+            color={store.lighthouseColor}
+            roughness={materials['Lighthouse red'].roughness}
+            metalness={materials['Lighthouse red'].metalness}
+          />
+        </mesh>
+        <mesh
+          name="Tower_2"
+          geometry={nodes.Tower_2.geometry}
+          material={materials.Window}
+          morphTargetDictionary={nodes.Tower_2.morphTargetDictionary}
+          morphTargetInfluences={scale} />
+        <mesh
+          name="Tower_3"
+          geometry={nodes.Tower_3.geometry}
+          material={materials.Roof}
+          morphTargetDictionary={nodes.Tower_3.morphTargetDictionary}
+          morphTargetInfluences={scale} />
+        <mesh
+          name="Tower_4"
+          geometry={nodes.Tower_4.geometry}
+          material={materials.Wood}
+          morphTargetDictionary={nodes.Tower_4.morphTargetDictionary}
+          morphTargetInfluences={scale} />
+        <mesh
+          name="Base001"
+          geometry={nodes.Base001.geometry}
+          material={materials['Lighthouse white']}
+          morphTargetDictionary={nodes.Base001.morphTargetDictionary}
+          morphTargetInfluences={scale}
+          position={[0, 0.439, 0]}
+          scale={[0.724, 0.199, 0.724]} />
+      </group>
     </group>
   )
 }

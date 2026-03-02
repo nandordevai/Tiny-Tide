@@ -4,9 +4,10 @@ Command: npx gltfjsx@6.5.3 public/model.glb --types --shadows --output=src/Model
 */
 
 import * as THREE from 'three'
-import React from 'react'
+import { useEffect } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { type GLTF } from 'three-stdlib'
+import { useStore } from './store'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -53,13 +54,20 @@ type GLTFResult = GLTF & {
     Road: THREE.MeshStandardMaterial
     Rock: THREE.MeshStandardMaterial
   }
-  animations: GLTFAction[]
 }
 
-export function Model(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/model.glb') as GLTFResult
+export function Model() {
+  const { nodes, materials } = useGLTF('/model.glb') as unknown as GLTFResult
+  const store = useStore()
+
+  useEffect(() => {
+    if (nodes) {
+      store.setLoaded()
+    }
+  }, [nodes])
+
   return (
-    <group {...props} dispose={null}>
+    <group dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.Background.geometry} material={materials.World} />
       <mesh castShadow receiveShadow geometry={nodes.Boat.geometry} material={materials['Wood light']}>
         <mesh castShadow receiveShadow geometry={nodes.Upper.geometry} material={materials['Wood light']} position={[2.932, 1.189, -0.72]} scale={[0.058, 0.231, 0.15]} />
@@ -70,7 +78,14 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       </mesh>
       <mesh castShadow receiveShadow geometry={nodes.Sea.geometry} material={materials.Sea} />
       <mesh castShadow receiveShadow geometry={nodes.Land.geometry} material={materials.Earth} />
-      <mesh castShadow receiveShadow geometry={nodes.Road.geometry} material={materials.Road} />
+      <mesh castShadow receiveShadow geometry={nodes.Road.geometry}>
+        <meshStandardMaterial
+          map={materials.Road.map}
+          color={store.roadColor}
+          roughness={materials.Road.roughness}
+          metalness={materials.Road.metalness}
+        />
+      </mesh>
       <mesh castShadow receiveShadow geometry={nodes.Rock014.geometry} material={materials.Rock} position={[-3.233, 1.54, 1.568]} rotation={[0.381, -0.074, -0.324]} scale={0.153} />
       <mesh castShadow receiveShadow geometry={nodes.Rock001.geometry} material={materials.Rock} position={[0.733, 1.036, -3.732]} scale={0.153} />
       <mesh castShadow receiveShadow geometry={nodes.Rock002.geometry} material={materials.Rock} position={[1.3, 1.036, -3.499]} rotation={[2.703, 0.444, 0.829]} scale={0.071} />
@@ -86,7 +101,14 @@ export function Model(props: JSX.IntrinsicElements['group']) {
       <mesh castShadow receiveShadow geometry={nodes.Rock012.geometry} material={materials.Rock} position={[1.138, 1.058, -3.316]} rotation={[-0.157, -0.355, -0.279]} scale={[0.212, 0.071, 0.071]} />
       <mesh castShadow receiveShadow geometry={nodes.Rock013.geometry} material={materials.Rock} position={[1.79, 1.483, 2.439]} rotation={[-3.018, 1.174, 3.13]} scale={[0.315, 0.105, 0.105]} />
       <mesh castShadow receiveShadow geometry={nodes.Tower.geometry} material={materials['Lighthouse white']} />
-      <mesh castShadow receiveShadow geometry={nodes.Tower_1.geometry} material={materials['Lighthouse red']} />
+      <mesh castShadow receiveShadow geometry={nodes.Tower_1.geometry}>
+        <meshStandardMaterial
+          map={materials['Lighthouse red'].map}
+          color={store.lighthouseColor}
+          roughness={materials['Lighthouse red'].roughness}
+          metalness={materials['Lighthouse red'].metalness}
+        />
+      </mesh>
       <mesh castShadow receiveShadow geometry={nodes.Tower_2.geometry} material={materials.Window} />
       <mesh castShadow receiveShadow geometry={nodes.Tower_3.geometry} material={materials.Roof} />
       <mesh castShadow receiveShadow geometry={nodes.Tower_4.geometry} material={materials.Wood} />

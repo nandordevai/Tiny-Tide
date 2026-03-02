@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { ContactShadows, Environment, OrbitControls, Sky, SoftShadows } from '@react-three/drei'
-import * as THREE from 'three'
+import { ContactShadows, Sky } from '@react-three/drei'
+// import * as THREE from 'three'
 import { Sidebar } from './Sidebar'
 import { Model } from './Model'
 import './App.css'
-import { useStore } from './store'
 
 export default function App() {
   const [count, setCount] = useState(0)
-  const store = useStore()
 
   useEffect(() => {
     if (import.meta.hot) {

@@ -1,17 +1,20 @@
-import { useStore } from './store'
 import './ColorPicker.css'
 
-export function ColorPicker() {
-  const { color, setColor } = useStore()
+interface ColorPickerProps {
+  value: string
+  setter: (val: string) => void
+  label: string
+}
 
+export function ColorPicker({ value, setter, label }: ColorPickerProps) {
   return (
     <div className="color-picker">
-      <label>Color</label>
+      <label>{label}</label>
       <input
         className="color-input"
         type="color"
-        value={color}
-        onChange={(e) => setColor(e.target.value)}
+        value={value}
+        onChange={(e) => setter(e.target.value)}
       />
     </div>
   )

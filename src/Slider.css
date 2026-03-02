@@ -9,33 +9,34 @@
 }
 
 .slider-input {
+  --size: 1.2rem;
+  --size-m: 2rem;
+
   appearance: none;
   background:
-    linear-gradient(
-      to right,
+    linear-gradient(to right,
       var(--accent-color),
       var(--accent-color) var(--progress),
       oklch(0.9 0 0) var(--progress),
-      oklch(0.9 0 0) 100%
-    );
-  border-radius: 2px;
+      oklch(0.9 0 0) 100%);
+    border-radius: var(--size);
   cursor: pointer;
-  height: 0.25rem;
+  height: var(--size);
   width: 100%;
 
   &::-webkit-slider-runnable-track {
     background: transparent;
-    border-radius: 2px;
+    border-radius: var(--size);
     box-shadow: inset 0 0 2px var(--shadow-color);
-    height: 0.25rem;
+    height: var(--size);
     width: 100%;
   }
 
   &::-moz-range-track {
     background: transparent;
-    border-radius: 2px;
+    border-radius: var(--size);
     box-shadow: inset 0 0 2px var(--shadow-color);
-    height: 0.25rem;
+    height: var(--size);
     width: 100%;
   }
 
@@ -45,13 +46,12 @@
     border: 1px solid var(--accent-color);
     border-radius: 50%;
     box-shadow: 0 1px 1px var(--shadow-color);
-    height: 1.2rem;
-    transform: translateY(-40%);
-    width: 1.2rem;
+    height: var(--size);
+    width: var(--size);
 
     @media (max-width: 900px) {
-      height: 2rem;
-      width: 2rem;
+      height: var(--size-m);
+      width: var(--size-m);
     }
   }
 
@@ -61,12 +61,12 @@
     border: 1px solid var(--accent-color);
     border-radius: 50%;
     box-shadow: 0 1px 1px var(--shadow-color);
-    height: 1.2rem;
-    width: 1.2rem;
+    height: var(--size);
+    width: var(--size);
 
     @media (max-width: 900px) {
-      height: 2rem;
-      width: 2rem;
+      height: var(--size-m);
+      width: var(--size-m);
     }
   }
 

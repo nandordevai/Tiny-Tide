@@ -25,7 +25,7 @@ export function Slider({ min, max, step, label = '', icon = '', dim = '', value,
       <label className="slider-label">
         {icon &&
           <span className="label-icon">
-            <img height="16" width="16" src={icon} alt={label} />
+            <img height="20" width="20" src={icon} alt={label} />
           </span>
         }
         {label && <span className="label-text">{label}</span>}

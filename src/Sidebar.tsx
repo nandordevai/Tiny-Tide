@@ -1,5 +1,6 @@
 import { ColorPicker } from './ColorPicker'
 import { Slider } from './Slider'
+import { ShareButton } from './ShareButton'
 import { useStore } from './store'
 import './Sidebar.css'
 
@@ -20,7 +21,7 @@ export function Sidebar() {
       <Slider
         min={0}
         max={1}
-        step={0.1}
+        step={0.01}
         label="Scale"
         value={store.lighthouseScale ?? 0}
         showValue={false}
@@ -49,7 +50,7 @@ export function Sidebar() {
         min={0}
         max={1}
         step={0.01}
-        label="Sea Shade"
+        icon="sea.svg"
         value={store.seaShade}
         showValue={false}
         onChange={(val) => store.setSeaShade(val)}
@@ -60,6 +61,10 @@ export function Sidebar() {
         value={store.roadColor}
         setter={store.setRoadColor}
       />
+
+      <div className="spacer"></div>
+
+      <ShareButton />
 
     </aside>
   )

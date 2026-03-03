@@ -83,14 +83,28 @@ export function Model() {
         <mesh castShadow receiveShadow geometry={nodes.Columns.geometry} material={materials['Wood light']} position={[1.2, 1.32, -0.129]} scale={[0.037, 0.074, 0.037]} />
       </mesh>
       <mesh castShadow receiveShadow geometry={nodes.Sea.geometry}>
-        <meshStandardMaterial
+        <meshPhysicalMaterial
           map={materials.Sea.map}
           color={getSeaColor()}
+          thickness={1}
+          transmission={1}
+          ior={1.33}
           roughness={materials.Sea.roughness}
           metalness={materials.Sea.metalness}
+          opacity={1}
+          transparent={true}
+          polygonOffset
+          polygonOffsetFactor={1}
+          polygonOffsetUnits={1}
+          reflectivity={0.5}
         />
       </mesh>
-      <mesh castShadow receiveShadow geometry={nodes.Land.geometry} material={materials.Earth} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Land.geometry}
+        material={materials.Earth}
+      />
       <mesh castShadow receiveShadow geometry={nodes.Road.geometry}>
         <meshStandardMaterial
           map={materials.Road.map}

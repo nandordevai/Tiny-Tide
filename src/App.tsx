@@ -1,10 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { ContactShadows, OrbitControls, Sky } from '@react-three/drei'
+import { ContactShadows, Environment, Helper, OrbitControls, Sky } from '@react-three/drei'
+import * as THREE from 'three'
 import { useStore } from './store'
 import { Sidebar } from './Sidebar'
 import { Model } from './Model'
+import { ScreenshotController } from './ScreenshotController'
 import './App.css'
+
+const debug = false
 
 export default function App() {
   const [count, setCount] = useState(0)
@@ -19,7 +23,7 @@ export default function App() {
   }, [])
 
   const getSunVector = (radius: number, z: number): [number, number, number] => {
-    const angle = store.sunPosition * Math.PI * 2
+    const angle = store.sunPosition * Math.PI
     return [Math.cos(angle) * radius, Math.sin(angle) * radius, z]
   }
 
@@ -28,13 +32,23 @@ export default function App() {
   const getSunLightPosition = () => getSunVector(20, -5)
 
   const getDaylightFactor = () => {
-    const angle = store.sunPosition * Math.PI * 2
+    const angle = store.sunPosition * Math.PI
     return Math.max(0, Math.sin(angle))
   }
 
   const getLightIntensity = () => getDaylightFactor() * 4 + 1
 
   const getAmbientIntensity = () => getDaylightFactor() * 0.5 + 0.5
+
+  const getExposure = () => getDaylightFactor() * 0.5 + 0.75
+
+  const getSunlightColor = () => {
+    const daylightFactor = getDaylightFactor()
+    const r = Math.round(255 * (0.5 + daylightFactor * 0.5))
+    const g = Math.round(255 * (0.5 + daylightFactor * 0.5))
+    const b = Math.round(255 * (0.7 + daylightFactor * 0.3))
+    return `rgb(${r}, ${g}, ${b})`
+  }
 
   return (
     <>
@@ -45,15 +59,26 @@ export default function App() {
           dpr={[1, 2]}
           key={count}
           shadows
+          gl={{
+            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMappingExposure: getExposure(),
+            antialias: true,
+            preserveDrawingBuffer: true
+          }}
         >
           <ambientLight intensity={getAmbientIntensity()} />
-          <Sky sunPosition={getSunPosition()} />
+          <Sky
+            sunPosition={getSunPosition()}
+            mieCoefficient={0.1}
+            mieDirectionalG={1}
+            rayleigh={1}
+          />
           <directionalLight
             castShadow
-            color={'rgb(255, 255, 240)'}
+            color={getSunlightColor()}
             intensity={getLightIntensity()}
             position={getSunLightPosition()}
-            shadow-bias={-0.001}
+            shadow-bias={-0.002}
             shadow-camera-left={-10}
             shadow-camera-right={10}
             shadow-camera-top={10}
@@ -61,21 +86,31 @@ export default function App() {
             shadow-camera-near={0.5}
             shadow-camera-far={40}
             shadow-mapSize={[2048, 2048]}
-          />
+          >
+            {debug && <Helper type={THREE.DirectionalLightHelper} args={[0.5, 'hotpink']} />}
+          </directionalLight>
           <ContactShadows
             opacity={1}
             scale={10}
             blur={2.5}
             far={4.5}
           />
-
+          <Environment preset="forest" background={false} frames={1} environmentIntensity={0.25} />
+          <fog attach="fog" args={['#050520', 15, 40]} />
           <Model />
-
           <OrbitControls
             makeDefault
-            enableZoom={false}
+            maxDistance={20}
+            minDistance={6}
+            minPolarAngle={Math.PI / 8}
+            maxPolarAngle={Math.PI / 2}
+            target={[0, 1.5, 0]}
           />
 
+          <ScreenshotController
+            trigger={store.capturing}
+            onComplete={() => store.setCapturing(false)}
+          />
         </Canvas>
       </main>
       <Sidebar />

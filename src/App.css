@@ -1,4 +1,5 @@
 .canvas {
+  aspect-ratio: 1 / 1;
   background:
     radial-gradient(oklch(1 0 0 / 0.25),
       oklch(1 0 0 / 0.25) 50%,

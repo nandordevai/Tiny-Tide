@@ -40,9 +40,19 @@ export function Sidebar() {
         max={1}
         step={0.01}
         icon="moon.svg"
-        value={store.sunPosition ?? 0}
+        value={store.sunPosition}
         showValue={false}
         onChange={(val) => store.setSunPosition(val)}
+      />
+
+      <Slider
+        min={0}
+        max={1}
+        step={0.01}
+        label="Sea Shade"
+        value={store.seaShade}
+        showValue={false}
+        onChange={(val) => store.setSeaShade(val)}
       />
 
       <ColorPicker

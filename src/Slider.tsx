@@ -21,7 +21,7 @@ export function Slider({ min, max, step, label = '', icon = '', dim = '', value,
       ((value - min) / (range / 100) - 50) / 10
 
   return (
-    <div className="slider">
+    <div className={`slider ${icon && 'slider--icon'}`}>
       <label className="slider-label">
         {icon &&
           <span className="label-icon">

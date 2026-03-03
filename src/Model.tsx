@@ -65,6 +65,12 @@ export function Model() {
     }
   }, [nodes])
 
+  const getSeaColor = () => {
+    const baseColor = new THREE.Color('#007BE7')
+    const seaColor = baseColor.lerp(new THREE.Color('#007D6C'), 1 - store.seaShade)
+    return seaColor.getHex()
+  }
+
   const scale = [store.lighthouseScale, 0, 1]
 
   return (
@@ -76,7 +82,14 @@ export function Model() {
         <mesh castShadow receiveShadow geometry={nodes.Base.geometry} material={materials['Wood light']} position={[0.985, 1.32, -0.129]} scale={[0.296, 0.296, 0.03]} />
         <mesh castShadow receiveShadow geometry={nodes.Columns.geometry} material={materials['Wood light']} position={[1.2, 1.32, -0.129]} scale={[0.037, 0.074, 0.037]} />
       </mesh>
-      <mesh castShadow receiveShadow geometry={nodes.Sea.geometry} material={materials.Sea} />
+      <mesh castShadow receiveShadow geometry={nodes.Sea.geometry}>
+        <meshStandardMaterial
+          map={materials.Sea.map}
+          color={getSeaColor()}
+          roughness={materials.Sea.roughness}
+          metalness={materials.Sea.metalness}
+        />
+      </mesh>
       <mesh castShadow receiveShadow geometry={nodes.Land.geometry} material={materials.Earth} />
       <mesh castShadow receiveShadow geometry={nodes.Road.geometry}>
         <meshStandardMaterial

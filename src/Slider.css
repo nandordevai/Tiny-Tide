@@ -15,7 +15,7 @@
       var(--accent-color) var(--progress),
       var(--background-color) var(--progress),
       var(--background-color) 100%);
-    border-radius: var(--size);
+  border-radius: var(--size);
   cursor: pointer;
   height: var(--size);
   width: 100%;
@@ -92,4 +92,13 @@
   padding: 0.2rem 0.5rem;
   text-align: right;
   width: 4rem;
+}
+
+.slider--icon {
+  display: flex;
+  flex-direction: row;
+
+  .slider-label {
+    flex: 0;
+  }
 }

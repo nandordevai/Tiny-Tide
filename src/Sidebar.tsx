@@ -39,7 +39,7 @@ export function Sidebar() {
         min={0}
         max={1}
         step={0.01}
-        icon="/moon.svg"
+        icon="moon.svg"
         value={store.sunPosition ?? 0}
         showValue={false}
         onChange={(val) => store.setSunPosition(val)}

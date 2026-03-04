@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { ContactShadows, Environment, Helper, OrbitControls, Sky } from '@react-three/drei'
+import { ContactShadows, Environment, Helper, OrbitControls, Sky, Stars } from '@react-three/drei'
 import * as THREE from 'three'
 import { useStore } from './store'
 import { Sidebar } from './Sidebar'
 import { Model } from './Model'
 import { ScreenshotController } from './ScreenshotController'
+import { SkySphere } from './SkySphere'
+import { MorningMist } from './MorningMist'
 import './App.css'
 
 const debug = false
@@ -42,6 +44,8 @@ export default function App() {
 
   const getExposure = () => getDaylightFactor() * 0.5 + 0.75
 
+  const getStarIntensity = () => 1 - getDaylightFactor()
+
   const getSunlightColor = () => {
     const daylightFactor = getDaylightFactor()
     const r = Math.round(255 * (0.5 + daylightFactor * 0.5))
@@ -67,12 +71,20 @@ export default function App() {
           }}
         >
           <ambientLight intensity={getAmbientIntensity()} />
-          <Sky
+          {/* <Sky
             sunPosition={getSunPosition()}
             mieCoefficient={0.1}
             mieDirectionalG={1}
             rayleigh={1}
-          />
+          /> */}
+          <SkySphere />
+          {store.lightOpacity > 0 && (
+            <Stars
+              factor={getStarIntensity() * 10}
+              count={Math.round(getStarIntensity() * 5000)}
+              fade
+            />
+          )}
           <directionalLight
             castShadow
             color={getSunlightColor()}
@@ -96,7 +108,8 @@ export default function App() {
             far={4.5}
           />
           <Environment preset="forest" background={false} frames={1} environmentIntensity={0.25} />
-          <fog attach="fog" args={['#050520', 15, 40]} />
+          {/* <fog attach="fog" args={['#ade8ff', 15, 40]} /> */}
+          <MorningMist />
           <Model />
           <OrbitControls
             makeDefault
@@ -105,6 +118,7 @@ export default function App() {
             minPolarAngle={Math.PI / 8}
             maxPolarAngle={Math.PI / 2}
             target={[0, 1.5, 0]}
+            near={0.01}
           />
 
           <ScreenshotController

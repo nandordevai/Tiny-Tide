@@ -18,6 +18,11 @@ interface ModelState {
   setCapturing: (value: boolean) => void
 }
 
+const smoothstep = (min: number, max: number, value: number) => {
+  const x = Math.max(0, Math.min(1, (value - min) / (max - min)))
+  return x * x * (3 - 2 * x)
+}
+
 export const useStore = create<ModelState>((set) => ({
   isLoaded: false,
   lighthouseScale: 0,
@@ -26,16 +31,25 @@ export const useStore = create<ModelState>((set) => ({
   sunPosition: 0.35,
   seaShade: 0.5,
   capturing: false,
-  lightOpacity: 0.4,
+  lightOpacity: 0,
   setLighthouseColor: (val) => set({ lighthouseColor: val }),
   setLighthouseScale: (val) => set({ lighthouseScale: val }),
   setRoadColor: (val) => set({ roadColor: val }),
-  // lightOpacity: 0.4 -> 0 -> 0.4
-  // sunPosition: 0 -> 0.5 -> 1
-  setSunPosition: (val) => set({
-    sunPosition: val,
-    lightOpacity: Math.max(0, Math.cos(val * Math.PI * 2) * 1 - 0.5)
-  }),
+  setSunPosition: (val) => {
+    const nightFactor = Math.cos(val * Math.PI * 2) * 1 - 0.5
+    // It only starts turning on when nightFactor > 0 (Dusk)
+    // It hits full brightness when nightFactor > 0.5 (Deep Night)
+    const opacity = smoothstep(0, 0.5, nightFactor)
+
+    set({
+      sunPosition: val,
+      lightOpacity: opacity
+    })
+    // set({
+    //   sunPosition: val,
+    //   lightOpacity: Math.max(0, Math.cos(val * Math.PI * 2) * 1 - 0.5)
+    // })
+  },
   setSeaShade: (val) => set({ seaShade: val }),
   setLoaded: () => set({ isLoaded: true }),
   setCapturing: (val) => set({ capturing: val })

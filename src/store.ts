@@ -4,6 +4,7 @@ interface ModelState {
   isLoaded: boolean
   lighthouseScale: number
   lighthouseColor: string
+  lightOpacity: number
   roadColor: string
   sunPosition: number
   seaShade: number
@@ -25,10 +26,16 @@ export const useStore = create<ModelState>((set) => ({
   sunPosition: 0.35,
   seaShade: 0.5,
   capturing: false,
+  lightOpacity: 0.4,
   setLighthouseColor: (val) => set({ lighthouseColor: val }),
   setLighthouseScale: (val) => set({ lighthouseScale: val }),
   setRoadColor: (val) => set({ roadColor: val }),
-  setSunPosition: (val) => set({ sunPosition: val }),
+  // lightOpacity: 0.4 -> 0 -> 0.4
+  // sunPosition: 0 -> 0.5 -> 1
+  setSunPosition: (val) => set({
+    sunPosition: val,
+    lightOpacity: Math.max(0, Math.cos(val * Math.PI * 2) * 1 - 0.5)
+  }),
   setSeaShade: (val) => set({ seaShade: val }),
   setLoaded: () => set({ isLoaded: true }),
   setCapturing: (val) => set({ capturing: val })

@@ -25,6 +25,7 @@ type GLTFResult = GLTF & {
     Sea: THREE.Mesh
     Land: THREE.Mesh
     Road: THREE.Mesh
+    Cone: THREE.Mesh
     Rock014: THREE.Mesh
     Rock001: THREE.Mesh
     Rock002: THREE.Mesh
@@ -52,6 +53,7 @@ type GLTFResult = GLTF & {
     Earth: THREE.MeshStandardMaterial
     Road: THREE.MeshStandardMaterial
     Rock: THREE.MeshStandardMaterial
+    Lightcone: THREE.MeshStandardMaterial
   }
 }
 
@@ -113,6 +115,22 @@ export function Model() {
           metalness={materials.Road.metalness}
         />
       </mesh>
+      <mesh
+        geometry={nodes.Cone.geometry}
+        position={[-0.173, 4.835, -1.606]}
+        rotation={[Math.PI, 0, Math.PI / 2]}
+        scale={[2, 8, 2]}
+      >
+        <meshBasicMaterial
+          color="#FFE75D"
+          transparent
+          opacity={store.lightOpacity}
+          side={THREE.DoubleSide}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+
       <mesh castShadow receiveShadow geometry={nodes.Rock014.geometry} material={materials.Rock} position={[-3.233, 1.54, 1.568]} rotation={[0.381, -0.074, -0.324]} scale={0.153} />
       <mesh castShadow receiveShadow geometry={nodes.Rock001.geometry} material={materials.Rock} position={[0.733, 1.036, -3.732]} scale={0.153} />
       <mesh castShadow receiveShadow geometry={nodes.Rock002.geometry} material={materials.Rock} position={[1.3, 1.036, -3.499]} rotation={[2.703, 0.444, 0.829]} scale={0.071} />

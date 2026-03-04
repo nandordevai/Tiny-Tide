@@ -5,26 +5,37 @@ import * as THREE from 'three'
 import { useStore } from './store'
 
 export function MorningMist() {
-  const { lightOpacity, sunPosition } = useStore()
+  const { sunPosition } = useStore()
   const cloudsRef = useRef<THREE.Group>(null)
 
   const getOpacity = () => {
-    const sunRise = 0.16
-    const isDawn = Math.abs(sunPosition - sunRise) < 0.017
+    const sunRise = 0.14
+    const isDawn = Math.abs(sunPosition - sunRise) < 0.025
     const opacity = isDawn ? Math.max(0, 0.4 - Math.abs(sunPosition - sunRise)) : 0
     return opacity
   }
 
+  const clouds = useMemo(() => (
+    <Cloud
+      seed={1}
+      segments={100}
+      bounds={[4, 1, 4]}
+      volume={0.1}
+      fade={20}
+      speed={0.0}
+    />
+  ), [])
+
   useFrame(() => {
-    if (cloudsRef.current) {
-      cloudsRef.current.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material.opacity = getOpacity()
-          child.material.transparent = child.material.opacity < 1
-          child.material.color.set(lightOpacity > 0.5 ? "#101020" : "#ade8ff")
-        }
-      })
-    }
+    cloudsRef.current?.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh
+        const material = mesh.material as THREE.MeshLambertMaterial
+        material.transparent = true
+        material.opacity = THREE.MathUtils.lerp(material.opacity, getOpacity(), 0.1)
+        mesh.visible = material.opacity > 0.01
+      }
+    })
   })
 
   return (
@@ -33,17 +44,7 @@ export function MorningMist() {
         material={THREE.MeshBasicMaterial}
         position={[0, 2, 0]}
       >
-        {useMemo(() => (
-          <Cloud
-            seed={1}
-            segments={100}
-            bounds={[4, 1, 4]}
-            volume={0.1}
-            fade={20}
-            speed={0.0}
-          />
-        ), [])
-        }
+        {clouds}
       </Clouds>
     </group>
   )

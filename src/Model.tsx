@@ -73,10 +73,11 @@ export function Model() {
     return seaColor.getHex()
   }
 
-  const scale = [store.lighthouseScale, 0, 1]
+  const scale = Array(3).fill(store.lighthouseScale) as unknown as [number, number, number]
 
   return (
     <group dispose={null}>
+      {/* General environment */}
       <mesh castShadow receiveShadow geometry={nodes.Boat.geometry} material={materials['Wood light']}>
         <mesh castShadow receiveShadow geometry={nodes.Upper.geometry} material={materials['Wood light']} position={[2.932, 1.189, -0.72]} scale={[0.058, 0.231, 0.15]} />
       </mesh>
@@ -115,22 +116,8 @@ export function Model() {
           metalness={materials.Road.metalness}
         />
       </mesh>
-      <mesh
-        geometry={nodes.Cone.geometry}
-        position={[-0.173, 4.835, -1.606]}
-        rotation={[Math.PI, 0, Math.PI / 2]}
-        scale={[2, 8, 2]}
-      >
-        <meshBasicMaterial
-          color="#FFE75D"
-          transparent
-          opacity={store.lightOpacity}
-          side={THREE.DoubleSide}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
 
+      {/* Rocks */}
       <mesh castShadow receiveShadow geometry={nodes.Rock014.geometry} material={materials.Rock} position={[-3.233, 1.54, 1.568]} rotation={[0.381, -0.074, -0.324]} scale={0.153} />
       <mesh castShadow receiveShadow geometry={nodes.Rock001.geometry} material={materials.Rock} position={[0.733, 1.036, -3.732]} scale={0.153} />
       <mesh castShadow receiveShadow geometry={nodes.Rock002.geometry} material={materials.Rock} position={[1.3, 1.036, -3.499]} rotation={[2.703, 0.444, 0.829]} scale={0.071} />
@@ -146,22 +133,21 @@ export function Model() {
       <mesh castShadow receiveShadow geometry={nodes.Rock012.geometry} material={materials.Rock} position={[1.138, 1.058, -3.316]} rotation={[-0.157, -0.355, -0.279]} scale={[0.212, 0.071, 0.071]} />
       <mesh castShadow receiveShadow geometry={nodes.Rock013.geometry} material={materials.Rock} position={[1.79, 1.483, 2.439]} rotation={[-3.018, 1.174, 3.13]} scale={[0.315, 0.105, 0.105]} />
 
-      <group position={[-0.192, 1.371, -1.606]}>
+      {/* Lighthouse */}
+      <group
+        position={[-0.192, 1.371, -1.606]}
+        scale={scale}
+      >
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Tower.geometry}
-          material={materials['Lighthouse white']}
-          morphTargetInfluences={scale}
-          morphTargetDictionary={nodes.Tower.morphTargetDictionary}
-        />
+          material={materials['Lighthouse white']} />
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Tower_1.geometry}
-          morphTargetInfluences={scale}
-          morphTargetDictionary={nodes.Tower.morphTargetDictionary}
-        >
+          material={materials['Lighthouse red']}>
           <meshStandardMaterial
             map={materials['Lighthouse red'].map}
             color={store.lighthouseColor}
@@ -172,37 +158,40 @@ export function Model() {
         <mesh
           castShadow
           receiveShadow
-          name="Tower_2"
           geometry={nodes.Tower_2.geometry}
-          material={materials.Window}
-          morphTargetDictionary={nodes.Tower_2.morphTargetDictionary}
-          morphTargetInfluences={scale} />
+          material={materials.Window} />
         <mesh
           castShadow
           receiveShadow
-          name="Tower_3"
           geometry={nodes.Tower_3.geometry}
-          material={materials.Roof}
-          morphTargetDictionary={nodes.Tower_3.morphTargetDictionary}
-          morphTargetInfluences={scale} />
+          material={materials.Roof} />
         <mesh
           castShadow
           receiveShadow
-          name="Tower_4"
           geometry={nodes.Tower_4.geometry}
-          material={materials.Wood}
-          morphTargetDictionary={nodes.Tower_4.morphTargetDictionary}
-          morphTargetInfluences={scale} />
+          material={materials.Wood} />
         <mesh
           castShadow
           receiveShadow
-          name="Base001"
           geometry={nodes.Base001.geometry}
           material={materials['Lighthouse white']}
-          morphTargetDictionary={nodes.Base001.morphTargetDictionary}
-          morphTargetInfluences={scale}
           position={[0, 0.439, 0]}
           scale={[0.724, 0.199, 0.724]} />
+        <mesh
+          geometry={nodes.Cone.geometry}
+          material={materials.Lightcone}
+          position={[0.019, 3.463, 0]}
+          rotation={[Math.PI, 0, Math.PI / 2]}
+          scale={[2, 8, 2]}>
+          <meshBasicMaterial
+            color="#FFE75D"
+            transparent
+            opacity={store.lightOpacity}
+            side={THREE.DoubleSide}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+          />
+        </mesh>
       </group>
     </group>
   )

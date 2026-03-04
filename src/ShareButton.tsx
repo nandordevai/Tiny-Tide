@@ -1,5 +1,4 @@
 import { useStore } from './store'
-import './ShareButton.css'
 
 export function ShareButton() {
   const store = useStore()
@@ -10,10 +9,10 @@ export function ShareButton() {
 
   return (
       <button
-        className="share-button"
+        className="button"
         onClick={handleShare}
       >
-        Share Scene
+        Share
       </button>
   )
 }

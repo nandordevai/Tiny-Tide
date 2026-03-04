@@ -1,6 +1,7 @@
 import { ColorPicker } from './ColorPicker'
 import { Slider } from './Slider'
 import { ShareButton } from './ShareButton'
+import { Randomizer } from './Randomizer'
 import { useStore } from './store'
 import './Sidebar.css'
 
@@ -19,8 +20,8 @@ export function Sidebar() {
     <aside className="sidebar">
       <h2>Lighthouse</h2>
       <Slider
-        min={0}
-        max={1}
+        min={1}
+        max={1.5}
         step={0.01}
         label="Scale"
         value={store.lighthouseScale ?? 0}
@@ -63,6 +64,8 @@ export function Sidebar() {
       />
 
       <div className="spacer"></div>
+
+      <Randomizer />
 
       <ShareButton />
 

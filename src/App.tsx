@@ -106,7 +106,7 @@ export default function App() {
             far={4.5}
           />
           <Environment preset="forest" background={false} frames={1} environmentIntensity={0.25} />
-          {/* <fog attach="fog" args={['#ade8ff', 15, 40]} /> */}
+          <fog attach="fog" args={['#ade8ff', 15, 40]} />
           <MorningMist />
           <Model />
           <OrbitControls

@@ -25,7 +25,7 @@ const smoothstep = (min: number, max: number, value: number) => {
 
 export const useStore = create<ModelState>((set) => ({
   isLoaded: false,
-  lighthouseScale: 0,
+  lighthouseScale: 1,
   lighthouseColor: '#E72E00',
   roadColor: '#AD8E6D',
   sunPosition: 0.35,

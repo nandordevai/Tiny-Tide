@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { ContactShadows, Environment, Helper, OrbitControls, Sky, Stars } from '@react-three/drei'
+import { ContactShadows, Environment, Helper, OrbitControls, Stars } from '@react-three/drei'
 import * as THREE from 'three'
 import { useStore } from './store'
 import { Sidebar } from './Sidebar'
@@ -28,8 +28,6 @@ export default function App() {
     const angle = store.sunPosition * Math.PI
     return [Math.cos(angle) * radius, Math.sin(angle) * radius, z]
   }
-
-  const getSunPosition = () => getSunVector(100, 0)
 
   const getSunLightPosition = () => getSunVector(20, -5)
 
@@ -118,7 +116,6 @@ export default function App() {
             minPolarAngle={Math.PI / 8}
             maxPolarAngle={Math.PI / 2}
             target={[0, 1.5, 0]}
-            near={0.01}
           />
 
           <ScreenshotController

@@ -1,12 +1,12 @@
 import { Clouds, Cloud } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { use, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useStore } from './store'
 
 export function MorningMist() {
   const { lightOpacity, sunPosition } = useStore()
-  const cloudsRef = useRef<THREE.Group>()
+  const cloudsRef = useRef<THREE.Group>(null)
 
   const getOpacity = () => {
     const sunRise = 0.16

@@ -59,10 +59,8 @@ export function SkySphere() {
         fragmentShader={fragmentShader}
         uniforms={uniforms.current}
         side={THREE.BackSide}
-        depthWrite={false} // This helps prevent the "strange polygon" clipping
+        depthWrite={false}
       />
     </mesh>
   )
 }
-
-// state.scene.background = dayTop.clone().lerp(nightTop, Math.abs(sunPosition * 2 - 1))

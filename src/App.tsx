@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { ContactShadows, Environment, Helper, OrbitControls, Stars } from '@react-three/drei'
+import { ContactShadows, Environment, Helper, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { useStore } from './store'
 import { Sidebar } from './Sidebar'
@@ -8,6 +8,7 @@ import { Model } from './Model'
 import { ScreenshotController } from './ScreenshotController'
 import { SkySphere } from './SkySphere'
 import { MorningMist } from './MorningMist'
+import { Stars } from './Stars'
 import './App.css'
 
 const debug = false
@@ -42,8 +43,6 @@ export default function App() {
 
   const getExposure = () => getDaylightFactor() * 0.5 + 0.75
 
-  const getStarIntensity = () => 1 - getDaylightFactor()
-
   const getSunlightColor = () => {
     const daylightFactor = getDaylightFactor()
     const r = Math.round(255 * (0.5 + daylightFactor * 0.5))
@@ -69,20 +68,8 @@ export default function App() {
           }}
         >
           <ambientLight intensity={getAmbientIntensity()} />
-          {/* <Sky
-            sunPosition={getSunPosition()}
-            mieCoefficient={0.1}
-            mieDirectionalG={1}
-            rayleigh={1}
-          /> */}
           <SkySphere />
-          {store.lightOpacity > 0 && (
-            <Stars
-              factor={getStarIntensity() * 10}
-              count={Math.round(getStarIntensity() * 5000)}
-              fade
-            />
-          )}
+          <Stars />
           <directionalLight
             castShadow
             color={getSunlightColor()}

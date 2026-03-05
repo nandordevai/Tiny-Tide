@@ -19,24 +19,16 @@ export function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <h2>Lighthouse</h2>
+      <h2>Settings</h2>
       <Slider
         min={1}
         max={1.5}
         step={0.01}
-        label="Scale"
+        icon="scale.svg"
         value={store.lighthouseScale ?? 0}
         showValue={false}
         onChange={(val) => store.setLighthouseScale(val)}
       />
-
-      <ColorPicker
-        label="Color"
-        value={store.lighthouseColor}
-        setter={store.setLighthouseColor}
-      />
-
-      <h2>Environment</h2>
 
       <Slider
         min={0}
@@ -58,16 +50,24 @@ export function Sidebar() {
         onChange={(val) => store.setSeaShade(val)}
       />
 
-      <ColorPicker
-        label="Road Color"
-        value={store.roadColor}
-        setter={store.setRoadColor}
-      />
-
       <Switch
-        label="Rain"
+        icon="rain.svg"
         checked={store.isRaining}
         onChange={(val) => store.setIsRaining(val)}
+      />
+
+      <h2>Colors</h2>
+
+      <ColorPicker
+        label="Lighthouse"
+        value={store.lighthouseColor}
+        setter={store.setLighthouseColor}
+      />
+
+      <ColorPicker
+        label="Road"
+        value={store.roadColor}
+        setter={store.setRoadColor}
       />
 
       <div className="spacer"></div>

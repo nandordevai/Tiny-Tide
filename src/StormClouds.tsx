@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 
 export function StormClouds({ boxSize = 6 }) {
+  const color = '#2d3748'
+
   const clouds = useMemo(() => {
-    const temp = []
+    const items = []
     const density = 1.5 // spheres per unit
     const count = Math.pow(boxSize * density, 2)
 
@@ -14,9 +16,9 @@ export function StormClouds({ boxSize = 6 }) {
       const scale = 0.8 + Math.random() * 1.2
       const rotation = Math.random() * Math.PI
 
-      temp.push({ x, y, z, scale, rotation })
+      items.push({ x, y, z, scale, rotation })
     }
-    return temp
+    return items
   }, [boxSize])
 
   return (
@@ -29,10 +31,12 @@ export function StormClouds({ boxSize = 6 }) {
           rotation-y={cloud.rotation}
         >
           <icosahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial
-            color="#2d3748"
+          <meshLambertMaterial
+            color={color}
             flatShading={true}
             roughness={1}
+            transparent={true}
+            opacity={0.7}
           />
         </mesh>
       ))}

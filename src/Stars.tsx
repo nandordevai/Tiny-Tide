@@ -6,7 +6,7 @@ import { useStore } from './store'
 
 export function Stars() {
   const starsRef = useRef<THREE.Points>(null!)
-  const { lightOpacity } = useStore()
+  const store = useStore()
 
   const starField = useMemo(() => (
     <DreiStars
@@ -26,13 +26,13 @@ export function Stars() {
 
     const material = starsRef.current.material as THREE.PointsMaterial
     material.transparent = true
-    material.opacity = THREE.MathUtils.smoothstep(lightOpacity, 0.2, 0.6)
+    material.opacity = THREE.MathUtils.smoothstep(store.lightOpacity, 0.2, 0.6)
     starsRef.current.visible = material.opacity > 0
   })
 
   return (
     <group>
-      {starField}
+      {store.isRaining ? null : starField}
     </group>
   )
 }

@@ -9,6 +9,7 @@ interface ModelState {
   sunPosition: number
   seaShade: number
   capturing: boolean
+  isRaining: boolean
   setLighthouseColor: (value: string) => void
   setLighthouseScale: (value: number) => void
   setRoadColor: (value: string) => void
@@ -16,6 +17,7 @@ interface ModelState {
   setSeaShade: (value: number) => void
   setLoaded: () => void
   setCapturing: (value: boolean) => void
+  setIsRaining: (value: boolean) => void
 }
 
 const smoothstep = (min: number, max: number, value: number) => {
@@ -32,6 +34,7 @@ export const useStore = create<ModelState>((set) => ({
   seaShade: 0.5,
   capturing: false,
   lightOpacity: 0,
+  isRaining: false,
   setLighthouseColor: (val) => set({ lighthouseColor: val }),
   setLighthouseScale: (val) => set({ lighthouseScale: val }),
   setRoadColor: (val) => set({ roadColor: val }),
@@ -52,5 +55,6 @@ export const useStore = create<ModelState>((set) => ({
   },
   setSeaShade: (val) => set({ seaShade: val }),
   setLoaded: () => set({ isLoaded: true }),
-  setCapturing: (val) => set({ capturing: val })
+  setCapturing: (val) => set({ capturing: val }),
+  setIsRaining: (val) => set({ isRaining: val })
 }))

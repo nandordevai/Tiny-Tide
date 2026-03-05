@@ -4,6 +4,7 @@ import { ShareButton } from './ShareButton'
 import { Randomizer } from './Randomizer'
 import { useStore } from './store'
 import './Sidebar.css'
+import { Switch } from './Switch'
 
 export function Sidebar() {
   const store = useStore()
@@ -61,6 +62,12 @@ export function Sidebar() {
         label="Road Color"
         value={store.roadColor}
         setter={store.setRoadColor}
+      />
+
+      <Switch
+        label="Rain"
+        checked={store.isRaining}
+        onChange={(val) => store.setIsRaining(val)}
       />
 
       <div className="spacer"></div>

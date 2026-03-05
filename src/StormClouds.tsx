@@ -34,7 +34,6 @@ export function StormClouds({ boxSize = 6 }) {
           <meshLambertMaterial
             color={color}
             flatShading={true}
-            roughness={1}
             transparent={true}
             opacity={0.7}
           />

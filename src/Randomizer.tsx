@@ -14,6 +14,7 @@ export function Randomizer() {
     store.setSunPosition(Math.random())
     store.setSeaShade(Math.random())
     store.setLighthouseScale(Math.random() * 0.5 + 1)
+    store.setIsRaining(Math.random() < 0.2)
   }
 
   return (

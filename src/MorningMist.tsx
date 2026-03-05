@@ -19,10 +19,10 @@ export function MorningMist() {
   const clouds = useMemo(() => (
     <Cloud
       seed={1}
-      segments={100}
+      segments={200}
       bounds={[4, 1, 4]}
       volume={0.1}
-      fade={20}
+      fade={40}
       speed={0.0}
     />
   ), [])

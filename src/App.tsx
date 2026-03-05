@@ -37,17 +37,15 @@ export default function App() {
   const getSunLightPosition = () => getSunVector(20, -5)
 
   const getDaylightFactor = () => {
-    if (store.isRaining) return 0
-
     const angle = store.sunPosition * Math.PI
     return Math.max(0, Math.sin(angle))
   }
 
-  const getLightIntensity = () => getDaylightFactor() * 4 + 1
+  const getLightIntensity = () => store.isRaining ? 0 : getDaylightFactor() * 4 + 1
 
-  const getAmbientIntensity = () => getDaylightFactor() * 0.5 + 0.5
+  const getAmbientIntensity = () => store.isRaining ? 0.5 : getDaylightFactor() * 0.5 + 0.5
 
-  const getExposure = () => getDaylightFactor() * 0.5 + 0.75
+  const getExposure = () => store.isRaining ? 0.75 : getDaylightFactor() * 0.5 + 0.75
 
   const getSunlightColor = () => {
     const daylightFactor = getDaylightFactor()
@@ -100,7 +98,7 @@ export default function App() {
           />
           <Environment preset="forest" background={false} frames={1} environmentIntensity={0.25} />
           <fog attach="fog" args={['#ade8ff', 15, 40]} />
-          {!store.isRaining && <MorningMist />}
+
           <Model />
           <StartAnimation orbitRef={orbitRef} />
           <OrbitControls
@@ -113,16 +111,19 @@ export default function App() {
             target={[0, 1.5, 0]}
           />
 
-          <ScreenshotController
-            trigger={store.capturing}
-            onComplete={() => store.setCapturing(false)}
-          />
+          {!store.isRaining && <MorningMist />}
+
           {store.isRaining &&
             <>
               <Rain />
               <StormClouds />
             </>
           }
+
+          <ScreenshotController
+            trigger={store.capturing}
+            onComplete={() => store.setCapturing(false)}
+          />
         </Canvas>
       </main>
       <Sidebar />

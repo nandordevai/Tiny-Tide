@@ -5,6 +5,8 @@
   -moz-osx-font-smoothing: grayscale;
 
   --accent-color: oklch(0.4 0.1 240);
+  --button-color: oklch(0.98 0 0);
+  --button-border-color: oklch(1 0 0 / 0.6);
   --shadow-color: oklch(0.6 0 0 / 0.6);
   --background-color: oklch(0.9 0 0);
 
@@ -65,21 +67,19 @@ body {
 }
 
 .button {
-  z-index: 100;
-  padding: 5px 10px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 5px;
-  font-size: 14px;
+  background: var(--button-color);
+  border-radius: 2rem;
+  border: 1px solid var(--button-border-color);
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  font-size: calc(var(--ui-font-size) * 1.1);
+  padding: 0.5rem;
   transition: all 0.2s ease;
+  z-index: 100;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.7);
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-    transform: scale(1.02);
+    background: oklch(0.99 0 0 / 0.7);
+    box-shadow: 0 0.125rem 0.5rem var(--shadow-color);
+    transform: scale(1.01);
   }
 }

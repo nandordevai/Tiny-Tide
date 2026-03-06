@@ -4,25 +4,44 @@ import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useStore } from './store'
 
-export function MorningMist() {
+interface TinyCloudsProps {
+  position: [number, number, number]
+  seed: number
+  segments: number
+  volume: number
+  fade: number
+  type: 'daytime' | 'morning'
+}
+
+export function TinyClouds(
+  { position, seed, segments, volume, fade, type }: TinyCloudsProps
+) {
   const { sunPosition } = useStore()
   const cloudsRef = useRef<THREE.Group>(null)
   const initialized = useRef(false)
 
   const getOpacity = () => {
-    const sunRise = 0.14
-    const isDawn = Math.abs(sunPosition - sunRise) < 0.025
-    const opacity = isDawn ? Math.max(0, 0.4 - Math.abs(sunPosition - sunRise)) : 0
+    let opacity = 0
+    if (type === 'morning') {
+      const sunRise = 0.14
+      const isDawn = Math.abs(sunPosition - sunRise) < 0.025
+      opacity = isDawn ? Math.max(0, 0.4 - Math.abs(sunPosition - sunRise)) : 0
+    } else if (type === 'daytime') {
+      const isMidday = sunPosition > 0.4 && sunPosition < 0.6
+      opacity = isMidday ?
+        Math.max(0, 1 - Math.abs(sunPosition - 0.5)) :
+        0
+    }
     return opacity
   }
 
   const cloud = useMemo(() => (
     <Cloud
-      seed={1}
-      segments={200}
+      seed={seed}
+      segments={segments}
       bounds={[4, 1, 4]}
-      volume={0.1}
-      fade={40}
+      volume={volume}
+      fade={fade}
       speed={0.0}
     />
   ), [])
@@ -49,8 +68,9 @@ export function MorningMist() {
   return (
     <group ref={cloudsRef}>
       <Clouds
-        material={THREE.MeshBasicMaterial}
-        position={[0, 2, 0]}
+        position={position}
+        frustumCulled={false}
+        limit={1000}
       >
         {cloud}
       </Clouds>

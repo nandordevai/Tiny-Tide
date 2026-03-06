@@ -7,12 +7,11 @@ import { Sidebar } from './Sidebar'
 import { Model } from './Model'
 import { ScreenshotController } from './ScreenshotController'
 import { SkySphere } from './SkySphere'
-import { MorningMist } from './MorningMist'
+import { TinyClouds } from './TinyClouds'
 import { Stars } from './Stars'
 import { StartAnimation } from './StartAnimation'
 import { Rain } from './Rain'
 import { StormClouds } from './StormClouds'
-import { DaytimeClouds } from './DaytimeClouds'
 import './App.css'
 
 const debug = false
@@ -112,7 +111,15 @@ export default function App() {
             target={[0, 1.5, 0]}
           />
 
-          {!store.isRaining && <MorningMist />}
+          {!store.isRaining &&
+            <TinyClouds
+              position={[0, 2, 0]}
+              seed={303}
+              segments={200}
+              volume={0.1}
+              fade={40}
+              type='morning'
+            />}
 
           {store.isRaining &&
             <>
@@ -122,9 +129,15 @@ export default function App() {
           }
 
           {
-            getDaylightFactor() > 0.9 &&
             !store.isRaining &&
-              <DaytimeClouds />
+              <TinyClouds
+                position={[0, 9, 0]}
+                seed={404}
+                segments={10}
+                volume={2}
+                fade={1}
+                type='daytime'
+              />
           }
 
           <ScreenshotController

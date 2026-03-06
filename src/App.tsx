@@ -12,6 +12,7 @@ import { Stars } from './Stars'
 import { StartAnimation } from './StartAnimation'
 import { Rain } from './Rain'
 import { StormClouds } from './StormClouds'
+import { DaytimeClouds } from './DaytimeClouds'
 import './App.css'
 
 const debug = false
@@ -118,6 +119,12 @@ export default function App() {
               <Rain />
               <StormClouds />
             </>
+          }
+
+          {
+            getDaylightFactor() > 0.9 &&
+            !store.isRaining &&
+              <DaytimeClouds />
           }
 
           <ScreenshotController

@@ -40,18 +40,11 @@ export const useStore = create<ModelState>((set) => ({
   setRoadColor: (val) => set({ roadColor: val }),
   setSunPosition: (val) => {
     const nightFactor = Math.cos(val * Math.PI * 2) * 1 - 0.5
-    // It only starts turning on when nightFactor > 0 (Dusk)
-    // It hits full brightness when nightFactor > 0.5 (Deep Night)
     const opacity = smoothstep(0, 0.5, nightFactor)
-
     set({
       sunPosition: val,
       lightOpacity: opacity
     })
-    // set({
-    //   sunPosition: val,
-    //   lightOpacity: Math.max(0, Math.cos(val * Math.PI * 2) * 1 - 0.5)
-    // })
   },
   setSeaShade: (val) => set({ seaShade: val }),
   setLoaded: () => set({ isLoaded: true }),

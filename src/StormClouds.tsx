@@ -12,7 +12,7 @@ export function StormClouds() {
         limit={1000}
       >
         <Cloud
-          seed={1}
+          seed={909}
           segments={100}
           bounds={[4, 1, 4]}
           volume={1}

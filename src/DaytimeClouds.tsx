@@ -1,31 +1,22 @@
 import { Clouds, Cloud } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import { useMemo, useRef } from 'react'
 import { useStore } from './store'
 
-export function MorningMist() {
+export function DaytimeClouds() {
+  const color = '#ffffff'
   const { sunPosition } = useStore()
   const cloudsRef = useRef<THREE.Group>(null)
   const initialized = useRef(false)
 
   const getOpacity = () => {
-    const sunRise = 0.14
-    const isDawn = Math.abs(sunPosition - sunRise) < 0.025
-    const opacity = isDawn ? Math.max(0, 0.4 - Math.abs(sunPosition - sunRise)) : 0
+    const isMidday = sunPosition > 0.4 && sunPosition < 0.6
+    const opacity = isMidday ?
+      Math.max(0, 1 - Math.abs(sunPosition - 0.5)) :
+      0
     return opacity
   }
-
-  const cloud = useMemo(() => (
-    <Cloud
-      seed={1}
-      segments={200}
-      bounds={[4, 1, 4]}
-      volume={0.1}
-      fade={40}
-      speed={0.0}
-    />
-  ), [])
 
   useFrame(() => {
     const targetOpacity = getOpacity()
@@ -46,11 +37,25 @@ export function MorningMist() {
     initialized.current = true
   })
 
+  const cloud = useMemo(() => (
+    <Cloud
+      seed={303}
+      segments={10}
+      bounds={[4, 1, 4]}
+      volume={2}
+      fade={1}
+      speed={0}
+      color={color}
+    />
+  ), [])
+
   return (
     <group ref={cloudsRef}>
       <Clouds
-        material={THREE.MeshBasicMaterial}
-        position={[0, 2, 0]}
+        material={THREE.MeshLambertMaterial}
+        position={[0, 9, 0]}
+        limit={1000}
+        frustumCulled={false}
       >
         {cloud}
       </Clouds>

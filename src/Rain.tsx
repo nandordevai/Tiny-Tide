@@ -10,7 +10,7 @@ export function Rain() {
     for (let i = 0; i < count; i++) {
       const x = (Math.random() - 0.5) * boxSize
       const z = (Math.random() - 0.5) * boxSize
-      const y = Math.random() * 7 + 1
+      const y = Math.random() * 6 + 1
 
       pos[i * 6] = x
       pos[i * 6 + 1] = y

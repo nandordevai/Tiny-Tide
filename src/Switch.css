@@ -34,6 +34,7 @@
     border-radius: 50%;
     border: 1px solid var(--accent-color);
     bottom: 0.25rem;
+    box-shadow: 1px 0 1px var(--shadow-color);
     content: "";
     height: 100%;
     transition: 0.2s;
@@ -45,6 +46,7 @@
   }
 
   input:checked + .slider:before {
+    box-shadow: -1px 0 1px oklch(from var(--shadow-color) 0.2 c h);
     transform: translateX(var(--base-size));
   }
 }

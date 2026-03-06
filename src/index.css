@@ -5,6 +5,7 @@
   --button-border-color: oklch(1 0 0 / 0.6);
   --shadow-color: oklch(0.6 0 0 / 0.6);
   --slider-progress-color: oklch(0.6 0 0);
+  --text-color: oklch(0.1 0 0);
 
   --ui-font-size: 0.8rem;
 }
@@ -34,7 +35,7 @@ body {
   place-items: center;
 
   @media (max-width: 900px) {
-    padding: 0.5rem;
+    padding: 0;
   }
 }
 
@@ -55,10 +56,12 @@ body {
   width: 45rem;
 
   @media (max-width: 900px) {
+    border: none;
+    border-radius: 0;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
-    height: calc(100dvh - 1rem);
-    width: calc(100dvw - 1rem);
+    height: 100dvh;
+    width: 100dvw;
   }
 }
 
@@ -67,15 +70,23 @@ body {
   border-radius: 2rem;
   border: 1px solid var(--button-border-color);
   box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
+  color: var(--text-color);
   cursor: pointer;
   font-size: calc(var(--ui-font-size) * 1.1);
   padding: 0.5rem;
   transition: all 0.2s ease;
   z-index: 100;
 
+  @media (max-width: 900px) {
+    width: 48%;
+  }
+
   &:hover {
     background: oklch(0.99 0 0 / 0.7);
     box-shadow: 0 0.125rem 0.5rem var(--shadow-color);
-    transform: scale(1.01);
+
+    @media (min-width: 901px) {
+      transform: scale(1.01);
+    }
   }
 }

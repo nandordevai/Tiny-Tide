@@ -6,7 +6,7 @@
 
 .slider-input {
   --size: 1.25rem;
-  --size-m: 2rem;
+  --size-m: 1.5rem;
 
   appearance: none;
   background:
@@ -42,12 +42,13 @@
     border: 1px solid var(--accent-color);
     border-radius: 25%;
     box-shadow: 1px 0 1px var(--shadow-color);
-    height: calc(var(--size) * 1.2);
-    transform: translateY(calc((var(--size) - calc(var(--size) * 1.2)) / 2));
+    height: var(--size);
+    transform: translateY(0);
     width: var(--size);
 
     @media (max-width: 900px) {
       height: var(--size-m);
+      transform: translateY(-2px);
       width: var(--size-m);
     }
   }

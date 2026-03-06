@@ -3,9 +3,17 @@
 
   & * {
     border-radius: 1rem;
+
+    @media (max-width: 900px) {
+      border-radius: 0;
+    }
   }
 }
 
 .viewport {
   margin: 0.5rem;
+
+  @media (max-width: 900px) {
+    margin: 0;
+  }
 }

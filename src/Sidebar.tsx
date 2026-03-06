@@ -50,31 +50,34 @@ export function Sidebar() {
         onChange={(val) => store.setSeaShade(val)}
       />
 
-      <Switch
-        icon="rain.svg"
-        checked={store.isRaining}
-        onChange={(val) => store.setIsRaining(val)}
-      />
+      <div className="small-controls">
+        <Switch
+          icon="rain.svg"
+          checked={store.isRaining}
+          onChange={(val) => store.setIsRaining(val)}
+        />
 
-      <h2>Colors</h2>
+        <h2>Colors</h2>
 
-      <ColorPicker
-        label="Lighthouse"
-        value={store.lighthouseColor}
-        setter={store.setLighthouseColor}
-      />
+        <ColorPicker
+          label="Lighthouse"
+          value={store.lighthouseColor}
+          setter={store.setLighthouseColor}
+        />
 
-      <ColorPicker
-        label="Road"
-        value={store.roadColor}
-        setter={store.setRoadColor}
-      />
+        <ColorPicker
+          label="Road"
+          value={store.roadColor}
+          setter={store.setRoadColor}
+        />
+      </div>
 
       <div className="spacer"></div>
 
-      <Randomizer />
-
-      <ShareButton />
+      <div className="buttons">
+        <Randomizer />
+        <ShareButton />
+      </div>
 
     </aside>
   )

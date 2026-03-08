@@ -1,52 +1,51 @@
 .switch {
-  --base-size: 1rem;
+  --size: 1.25rem;
+  @media (max-width: 900px) {
+    --size: 1.5rem;
+  }
 
   display: flex;
   align-items: center;
-  gap: calc(var(--base-size) / 2);
-  width: fit-content;
-
-  span {
-    cursor: pointer;
-    font-size: var(--ui-font-size);
-  }
+  gap: calc(var(--size) / 2);
+  width: 100%;
 
   input {
     display: none;
   }
 
-  .slider {
+  .toggle {
     background-color: #ccc;
-    border-radius: var(--base-size);
+    border-radius: var(--size);
     bottom: 0;
     box-shadow: inset 0 0 2px var(--shadow-color);
     cursor: pointer;
-    height: calc(var(--base-size) + 2px);
+    height: calc(var(--size) + 2px);
     left: 0;
     right: 0;
     top: 0;
     transition: 0.4s;
-    width: calc(var(--base-size) * 2);
+    width: calc(var(--size) * 2);
   }
 
-  .slider:before {
+  .toggle:before {
     background-color: white;
     border-radius: 50%;
     border: 1px solid var(--accent-color);
     bottom: 0.25rem;
     box-shadow: 1px 0 1px var(--shadow-color);
     content: "";
-    height: 100%;
+    display: inline-block;
+    height: var(--size);
     transition: 0.2s;
-    width: var(--base-size);
+    width: var(--size);
   }
 
-  input:checked + .slider {
+  input:checked + .toggle {
     background-color: var(--accent-color);
   }
 
-  input:checked + .slider:before {
+  input:checked + .toggle:before {
     box-shadow: -1px 0 1px oklch(from var(--shadow-color) 0.2 c h);
-    transform: translateX(var(--base-size));
+    transform: translateX(var(--size));
   }
 }

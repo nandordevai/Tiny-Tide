@@ -1,16 +1,16 @@
 import './Switch.css'
 
-export function Switch({ label, icon, checked, onChange }: { label?: string, icon?: string, checked: boolean, onChange: (val: boolean) => void }) {
+export function Switch({ label, checked, onChange }: { label: string, checked: boolean, onChange: (val: boolean) => void }) {
   return (
-    <label className="switch">
-      {icon && <img width="20" height="20" src={icon} alt={label} />}
-      {label && <span>{label}</span>}
+    <label className="switch control">
+      {label && <span className="switch-label control-label">{label}</span>}
       <input
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
+        className="control-input"
       />
-      <span className="slider"></span>
+      <span className="toggle"></span>
     </label>
   )
 }

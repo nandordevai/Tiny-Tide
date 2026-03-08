@@ -24,7 +24,7 @@ export function Sidebar() {
         min={1}
         max={1.5}
         step={0.01}
-        icon="scale.svg"
+        label="Scale"
         value={store.lighthouseScale ?? 0}
         showValue={false}
         onChange={(val) => store.setLighthouseScale(val)}
@@ -34,7 +34,7 @@ export function Sidebar() {
         min={0}
         max={1}
         step={0.01}
-        icon="moon.svg"
+        label="Sun"
         value={store.sunPosition}
         showValue={false}
         onChange={(val) => store.setSunPosition(val)}
@@ -44,7 +44,7 @@ export function Sidebar() {
         min={0}
         max={1}
         step={0.01}
-        icon="sea.svg"
+        label="Sea"
         value={store.seaShade}
         showValue={false}
         onChange={(val) => store.setSeaShade(val)}
@@ -52,7 +52,7 @@ export function Sidebar() {
 
       <div className="small-controls">
         <Switch
-          icon="rain.svg"
+          label="Rain"
           checked={store.isRaining}
           onChange={(val) => store.setIsRaining(val)}
         />

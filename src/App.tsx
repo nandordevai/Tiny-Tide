@@ -13,6 +13,7 @@ import { StartAnimation } from './StartAnimation'
 import { Rain } from './Rain'
 import { StormClouds } from './StormClouds'
 import './App.css'
+import './Control.css'
 
 const debug = false
 

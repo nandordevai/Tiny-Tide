@@ -8,7 +8,7 @@ interface ColorPickerProps {
 
 export function ColorPicker({ value, setter, label }: ColorPickerProps) {
   return (
-    <div className="color-picker">
+    <div className="color-picker control">
       <label>{label}</label>
       <input
         className="color-input"

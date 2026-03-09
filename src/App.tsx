@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
+import { Suspense, useEffect, useState, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { ContactShadows, Environment, Helper, OrbitControls } from '@react-three/drei'
+import { ContactShadows, Environment, Helper, Loader, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import { useStore } from './store'
 import { Sidebar } from './Sidebar'
@@ -59,78 +59,79 @@ export default function App() {
   return (
     <>
       <main className='viewport'>
-        <Canvas
-          className="canvas"
-          camera={{ position: [10, 12, 10], fov: 40 }}
-          dpr={[1, 2]}
-          key={count}
-          shadows
-          gl={{
-            toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: getExposure(),
-            antialias: true,
-            preserveDrawingBuffer: true
-          }}
-        >
-          <ambientLight intensity={getAmbientIntensity()} />
-          <SkySphere />
-          <Stars />
-          <directionalLight
-            castShadow
-            color={getSunlightColor()}
-            intensity={getLightIntensity()}
-            position={getSunLightPosition()}
-            shadow-bias={-0.002}
-            shadow-camera-left={-10}
-            shadow-camera-right={10}
-            shadow-camera-top={10}
-            shadow-camera-bottom={-10}
-            shadow-camera-near={0.5}
-            shadow-camera-far={40}
-            shadow-mapSize={[2048, 2048]}
+        <Suspense fallback={null}>
+          <Canvas
+            className="canvas"
+            camera={{ position: [10, 12, 10], fov: 40 }}
+            dpr={[1, 2]}
+            key={count}
+            shadows
+            gl={{
+              toneMapping: THREE.ACESFilmicToneMapping,
+              toneMappingExposure: getExposure(),
+              antialias: true,
+              preserveDrawingBuffer: true
+            }}
           >
-            {debug && <Helper type={THREE.DirectionalLightHelper} args={[0.5, 'hotpink']} />}
-          </directionalLight>
-          <ContactShadows
-            opacity={1}
-            scale={10}
-            blur={2.5}
-            far={4.5}
-          />
-          <Environment preset="forest" background={false} frames={1} environmentIntensity={0.25} />
-          <fog attach="fog" args={['#ade8ff', 15, 40]} />
+            <ambientLight intensity={getAmbientIntensity()} />
+            <SkySphere />
+            <Stars />
+            <directionalLight
+              castShadow
+              color={getSunlightColor()}
+              intensity={getLightIntensity()}
+              position={getSunLightPosition()}
+              shadow-bias={-0.002}
+              shadow-camera-left={-10}
+              shadow-camera-right={10}
+              shadow-camera-top={10}
+              shadow-camera-bottom={-10}
+              shadow-camera-near={0.5}
+              shadow-camera-far={40}
+              shadow-mapSize={[2048, 2048]}
+            >
+              {debug && <Helper type={THREE.DirectionalLightHelper} args={[0.5, 'hotpink']} />}
+            </directionalLight>
+            <ContactShadows
+              opacity={1}
+              scale={10}
+              blur={2.5}
+              far={4.5}
+            />
+            <Environment preset="forest" background={false} frames={1} environmentIntensity={0.25} />
+            <fog attach="fog" args={['#ade8ff', 15, 40]} />
 
-          <Model />
-          <StartAnimation orbitRef={orbitRef} />
-          <OrbitControls
-            ref={orbitRef}
-            makeDefault
-            maxDistance={20}
-            minDistance={6}
-            minPolarAngle={Math.PI / 8}
-            maxPolarAngle={Math.PI / 2}
-            target={[0, 1.5, 0]}
-          />
+            <Model />
+            <StartAnimation orbitRef={orbitRef} />
+            <OrbitControls
+              ref={orbitRef}
+              makeDefault
+              maxDistance={20}
+              minDistance={6}
+              minPolarAngle={Math.PI / 8}
+              maxPolarAngle={Math.PI / 2}
+              target={[0, 1.5, 0]}
+            />
 
-          {!store.isRaining &&
-            <TinyClouds
-              position={[0, 2, 0]}
-              seed={303}
-              segments={200}
-              volume={0.1}
-              fade={40}
-              type='morning'
-            />}
+            {!store.isRaining &&
+              <TinyClouds
+                position={[0, 2, 0]}
+                seed={303}
+                segments={200}
+                volume={0.1}
+                fade={40}
+                type='morning'
+              />}
 
-          {store.isRaining &&
-            <>
-              <Rain />
-              <StormClouds />
-            </>
-          }
+            {store.isRaining &&
+              <>
+                <Rain />
+                <StormClouds />
+              </>
+            }
 
-          {
-            !store.isRaining &&
+            {
+              !store.isRaining &&
               <TinyClouds
                 position={[0, 9, 0]}
                 seed={404}
@@ -139,13 +140,15 @@ export default function App() {
                 fade={1}
                 type='daytime'
               />
-          }
+            }
 
-          <ScreenshotController
-            trigger={store.capturing}
-            onComplete={() => store.setCapturing(false)}
-          />
-        </Canvas>
+            <ScreenshotController
+              trigger={store.capturing}
+              onComplete={() => store.setCapturing(false)}
+            />
+          </Canvas>
+        </Suspense>
+        <Loader />
       </main>
       <Sidebar />
     </>

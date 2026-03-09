@@ -9,14 +9,6 @@ import { Switch } from './Switch'
 export function Sidebar() {
   const store = useStore()
 
-  if (!store.isLoaded) {
-    return (
-      <aside className="sidebar">
-        <p>loading model…</p>
-      </aside>
-    )
-  }
-
   return (
     <aside className="sidebar">
       <h2>Settings</h2>

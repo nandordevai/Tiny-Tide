@@ -32,7 +32,7 @@ export function ScreenshotController({ trigger, onComplete }: { trigger: boolean
         ctx.shadowColor = "rgba(0, 0, 0, 0.5)"
         ctx.shadowBlur = 10
         ctx.fillText("CREATED WITH TINY TIDE", targetSize - padding, targetSize - padding - 50)
-        ctx.fillText("nandordevai.net/Tiny-Tide/", targetSize - padding, targetSize - padding)
+        ctx.fillText("nandordevai.github.io/Tiny-Tide/", targetSize - padding, targetSize - padding)
 
         canvas2d.toBlob(async (blob) => {
           if (!blob) return

@@ -148,24 +148,6 @@ export default function App() {
               />
             </Suspense>
           </Canvas>
-          {/* <div
-              className="canvas-placeholder"
-              style={
-                {
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  backgroundColor: '#f0f0f0',
-                  color: '#333',
-                  padding: '1rem',
-                  textAlign: 'center'
-                }
-              }
-            >
-              <p>Canvas is currently disabled for development.</p>
-            </div> */}
           <Loader />
         </div>
       </main>

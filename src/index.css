@@ -7,7 +7,7 @@
   --slider-progress-color: oklch(0.6 0 0);
   --text-color: oklch(0.1 0 0);
 
-  --ui-font-size: 0.8rem;
+  --ui-font-size: clamp(0.8rem, 1.25vw, 1.1rem);
 }
 
 * {
@@ -52,8 +52,7 @@ body {
   box-shadow: 0 0 1rem oklch(0.6 0 0 / 0.8);
   display: grid;
   grid-template-columns: 2fr 1fr;
-  height: 30rem;
-  width: 45rem;
+  width: clamp(700px, 70dvw, 900px);
 
   @media (max-width: 900px) {
     border: none;
@@ -72,7 +71,7 @@ body {
   box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
   color: var(--text-color);
   cursor: pointer;
-  font-size: calc(var(--ui-font-size) * 1.1);
+  font-size: var(--ui-font-size);
   padding: 0.5rem;
   transition: all 0.2s ease;
   z-index: 100;

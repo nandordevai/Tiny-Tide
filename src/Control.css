@@ -11,6 +11,7 @@
     align-items: center;
     cursor: pointer;
     display: flex;
+    flex-grow: 1;
     font-size: var(--ui-font-size);
     justify-content: space-between;
     user-select: none;
@@ -19,6 +20,6 @@
   }
 
   .control-input {
-    flex: 1;
+    flex-grow: 10;
   }
 }

@@ -1,5 +1,4 @@
 .canvas {
-  aspect-ratio: 1 / 1;
 
   & * {
     border-radius: 1rem;
@@ -8,6 +7,12 @@
       border-radius: 0;
     }
   }
+}
+
+.canvas-wrapper  {
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  max-width: 600px;
 }
 
 .viewport {
